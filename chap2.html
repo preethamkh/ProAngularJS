@@ -14,7 +14,11 @@
         // fetching data from json
         todoApp.run(function ($http) {
             $http.get("chap2.json").success(function (data) {
-                model.items = data;
+                //model.items = data;
+                var jsonString = angular.toJson(data);
+                console.log(jsonString);
+                //$cope.todo = angular.fromJson(jsonString);
+                model.items = angular.fromJson(jsonString);
             })
         });
 
@@ -31,7 +35,7 @@
             }
         });
 
-		todoApp.controller("ToDoCtrl", function($scope) {
+		todoApp.controller("ToDoCtrl", function($scope, $http) {
 		    $scope.todo = model;
 
             $scope.incompleteCount = function () {
@@ -49,6 +53,14 @@
             $scope.addNewItem = function (actionText) {
                 $scope.todo.items.push({action: actionText, done: false});
             }
+
+            /*$http.get("chap2.json").then(function (response) {
+               $scope.todo = response.data;
+            }, function() {
+                      $scope.todo = [{action: "Error"}];
+                    }).then(function() {
+                $scope.todo.push({action: "Request complete"});
+            });*/
 		});
     </script>
 </head>
@@ -76,6 +88,11 @@
 					<td><input type="checkbox" ng-model="item.done"></td>
                     <td>{{item.done}}</td>
                 </tr>
+
+                <!--<tr ng-repeat="item in todos">
+                    <td>{{item.action}}</td>
+                    <td>{{item.done}}</td>
+                </tr>-->
             </tbody>
         </table>
 
