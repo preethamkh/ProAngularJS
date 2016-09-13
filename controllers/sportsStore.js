@@ -2,6 +2,7 @@
  * Created by Preetham on 8/09/2016.
  */
 // locate a module named "sportsStore" that has already been defined
+/*
 angular.module("sportsStore")
     .controller("sportsStoreCtrl", function ($scope) {
         $scope.data = {
@@ -15,4 +16,18 @@ angular.module("sportsStore")
                 { name: "Product #4", description: "A product",
                     category: "Category #3", price: 202 }]
         };
+    });*/
+
+angular.module("sportsStore")
+    .constant("dataUrl", "http://localhost:5500/products")
+    .controller("sportsStoreCtrl", function ($scope, $http, dataUrl) {
+        $scope.data = {};
+
+        $http.get(dataUrl)
+            .success(function (data) {
+                $scope.data.products = data;
+            })
+            .error(function (error) {
+                $scope.data.error = error;
+            });
     });
