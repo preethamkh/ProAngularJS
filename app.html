@@ -8,12 +8,26 @@
     <script src="bootstrap.min.js"></script>
     <link href="bootstrap.min.css" rel="stylesheet"/>
     <script>
-        angular.module("sportsStore", ["customFilters", "cart"]);
+        angular.module("sportsStore", ["customFilters", "cart", "ngRoute"])
+                .config(function ($routeProvider) {
+                    $routeProvider.when("/checkout", {
+                        templateUrl: "/views/checkoutSummary.html"
+                    });
+
+                    $routeProvider.when("/products", {
+                        templateUrl: "/views/productList.html"
+                    });
+
+                    $routeProvider.otherwise({
+                        templateUrl: "/views/productList.html"
+                    });
+                });
     </script>
     <script src="controllers/sportsStore.js"></script>
     <script src="filters/customFilters.js"></script>
     <script src="controllers/productListControllers.js"></script>
     <script src="components/cart/cart.js"></script>
+    <script src="angular-route.min.js"></script>
 </head>
 <body ng-controller="sportsStoreCtrl">
 <div class="navbar navbar-inverse">
@@ -27,6 +41,7 @@
 </div>
 
 <!-- partial view -->
-<ng-include src="'views/productList.html'"></ng-include>
+<!--<ng-include src="'views/productList.html'"></ng-include>-->
+<ng-view></ng-view>
 </body>
 </html>
