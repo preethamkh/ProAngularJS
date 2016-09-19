@@ -2,12 +2,12 @@
  * Created by Preetham on 16/09/2016.
  */
 angular.module("sportsStoreAdmin")
-    .constant("authUrl", "http://localhost:5500/users/login")
+        .constant("authUrl", "http://localhost:5500/users/login")
     .controller("authCtrl", function ($scope, $http, $location, authUrl) {
-        $scope.authenticate = function (username, password) {
+        $scope.authenticate = function (user, pass) {
             $http.post(authUrl, {
-                username: username,
-                password: password
+                username: user,
+                password: pass
             }, {
                 withCredentials: true
             }).success(function (data) {
